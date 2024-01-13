@@ -17,6 +17,13 @@
         "src/common/**/": "KEBAB_CASE"
       }
     ],
-    "import/order": [2]
+    "import/order": [2],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "singleQuote": true
+      }
+    ]
   }
 }

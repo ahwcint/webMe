@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-check-file": "^2.6.2",
     "eslint-plugin-prettier": "^5.1.2",

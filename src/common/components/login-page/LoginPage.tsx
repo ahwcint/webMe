@@ -1,6 +1,6 @@
-"use client";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+'use client';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 export default function LoginPage() {
   const [, forceUpdate] = useState<object>();
@@ -12,9 +12,9 @@ export default function LoginPage() {
   const handleChang = (data: React.ChangeEvent<HTMLInputElement>) => {
     const text = data.target.value;
     let currentUrl = window.location.href;
-    const separator = currentUrl.includes("?") ? "&" : "?";
+    const separator = currentUrl.includes('?') ? '&' : '?';
     const newParams = `${separator}text=${encodeURIComponent(text)}`;
-    if (currentUrl.includes("text=")) {
+    if (currentUrl.includes('text=')) {
       currentUrl = currentUrl.replace(new RegExp(`text=[^&]*`), `text=${text}`);
     } else {
       currentUrl += newParams;
@@ -25,13 +25,13 @@ export default function LoginPage() {
   const rerender = () => {
     forceUpdate({});
   };
-  console.log("router");
+  console.log('router');
   return (
     <div>
       <div>add router item</div>
       <div>
         <input type="text" onChange={handleChang} />
-        <span>this is url : {pathName + "/" + curUrl}</span>
+        <span>this is url : {pathName + '/' + curUrl}</span>
         <button onClick={rerender}>re render nowwww</button>
       </div>
     </div>
