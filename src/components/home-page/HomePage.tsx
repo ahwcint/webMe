@@ -18,5 +18,5 @@ const Div = styled.div<{ text?: string }>((props) => ({
 }));
 
 export const HomePage = () => {
-  return <Div>{'Welcome to webMe'}</Div>;
+  return <Div>{'Welcome to webMe & Korn'}</Div>;
 };
