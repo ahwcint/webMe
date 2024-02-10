@@ -5,9 +5,10 @@ type TGrid = {
   children: React.ReactNode;
 };
 
+const DivGrid = styled.div({
+  display: 'grid',
+});
+
 export const Grid = ({ children }: TGrid) => {
-  const Grid = styled.div({
-    display: 'grid',
-  });
-  return <Grid>{children}</Grid>;
+  return <DivGrid>{children}</DivGrid>;
 };
