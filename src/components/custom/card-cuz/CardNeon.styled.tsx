@@ -11,10 +11,10 @@ const Card = ({ style }: TCard) => {
     borderRadius: '0.5rem',
     padding: '1rem',
     transition:
-      'outline 0.3s linear,background-size 1s ease,border 0.3s linear,box-shadow 0.3s linear',
+      'outline 0.2s ease-out,border 0.2s ease-out,box-shadow 0.2s ease-out',
     backgroundPosition: 'center',
     boxShadow: '0px 0px 0px #ffffff33',
-    animation: 'bgLogin infinite 3s alternate ease-in-out',
+    animation: 'bgLogin infinite 5s alternate ease-in-out',
     '&:hover': {
       borderTop: '1px solid #ffffff00',
       outline: '1px solid #ffffff',
@@ -23,10 +23,10 @@ const Card = ({ style }: TCard) => {
     ...style,
     '@keyframes bgLogin': {
       '0%': {
-        backgroundSize: '150%',
+        backgroundSize: '300%',
       },
       '100%': {
-        backgroundSize: '300%',
+        backgroundSize: '500%',
       },
     },
   });

@@ -1,21 +1,32 @@
 'use client';
 
 import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import z, { ZodType } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import styled from '@emotion/styled';
 import { Button } from '../ui/button';
-import { Card } from '../ui/card';
-import { Flex } from '../custom/Flex/Flex';
-import { Typrography } from '../custom/Typrography/Typrography';
+import { Flex } from '../custom/flex/Flex';
+import { Typrography } from '../custom/typrography/Typrography';
 import { Input } from '../ui/input';
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '../ui/form';
-import { CardCuz } from '../custom/CardCuz/CardCuz';
+import { CardCuz } from '../custom/card-cuz/CardCuz';
+
+const loginFormSchem = z.object({
+  username: z
+    .string()
+    .min(1, { message: 'username are required!' })
+    .min(3)
+    .max(24),
+  password: z.string().min(3).max(9),
+});
 
 const Layout = styled.div({
   width: '100%',
@@ -27,10 +38,10 @@ export default function LoginPage() {
   return (
     <Layout>
       <CardCuz
-        // style={{ width: 'clamp(20rem,100%,25rem)', margin: 'auto' }}
         widthSize={'sm'}
         varient={'neon'}
         marginAuto
+        style={{ padding: '1rem' }}
       >
         <LoginForm />
       </CardCuz>
@@ -38,25 +49,38 @@ export default function LoginPage() {
   );
 }
 
-function LoginForm() {
-  const loginForm = useForm();
+const LoginForm = () => {
+  const loginForm = useForm<z.infer<typeof loginFormSchem>>({
+    resolver: zodResolver(loginFormSchem),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
+  const handleSubmit = (e: any) => {
+    loginFormSchem.parse(e);
+    loginFormSchem.parse({ username: '123', password: '123' });
+    console.log('e', e);
+  };
+  const watchButton = loginForm.watch(['username', 'password']);
   return (
-    <FormProvider {...loginForm}>
-      <Flex
-        direction={'column'}
-        style={{ alignItems: 'center', padding: '1rem', gap: '0.5rem' }}
-        childFullWidth
-      >
-        <Typrography textAlign={'center'} fontSize={'1.5rem'}>
+    <Form {...loginForm}>
+      <form onSubmit={loginForm.handleSubmit(handleSubmit)}>
+        <Typrography
+          textAlign={'center'}
+          fontSize={'1.5rem'}
+          lineHeight={'1rem'}
+          fontWeight={'bold'}
+          margin={'2rem 1rem'}
+        >
           {'Welcome to webMe'}
         </Typrography>
         <FormField
+          control={loginForm.control}
           name={'username'}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                <Typrography>{'USERNAME'}</Typrography>
-              </FormLabel>
+              <FormLabel>{'USERNAME'}</FormLabel>
               <FormControl>
                 <Input type={'text'} {...field} autoComplete={'off'} />
               </FormControl>
@@ -65,12 +89,11 @@ function LoginForm() {
           )}
         />
         <FormField
+          control={loginForm.control}
           name={'password'}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                <Typrography>{'PASSWORD'}</Typrography>
-              </FormLabel>
+              <FormLabel>{'PASSWORD'}</FormLabel>
               <FormControl>
                 <Input type={'password'} {...field} autoComplete={'off'} />
               </FormControl>
@@ -81,24 +104,13 @@ function LoginForm() {
         <Button
           fullWidth
           style={{ marginTop: '1rem' }}
-          onClick={() => loginForm.reset()}
+          onClick={() => loginForm.handleSubmit(handleSubmit)}
+          disabled={watchButton.includes('')}
+          variant={watchButton.includes('') ? 'outline' : 'default'}
         >
           {'Log in'}
         </Button>
-      </Flex>
-    </FormProvider>
+      </form>
+    </Form>
   );
-}
-
-// <Flex
-//   direction={'column'}
-//   style={{ alignItems: 'center', padding: '1rem', gap: '0.5rem' }}
-// >
-//   <Typrography>{'USERNAME'}</Typrography>
-//   <Input type={'text'} />
-//   <Typrography>{'PASSWORD'}</Typrography>
-//   <Input type={'password'} />
-//   <Button fullWidth style={{ marginTop: '1rem' }}>
-//     {'Log in'}
-//   </Button>
-// </Flex>
+};
