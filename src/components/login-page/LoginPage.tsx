@@ -5,18 +5,17 @@ import { FormProvider, useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
-import { Flex } from '../custom/Flex';
-import { Typrography } from '../custom/Typrography';
+import { Flex } from '../custom/Flex/Flex';
+import { Typrography } from '../custom/Typrography/Typrography';
 import { Input } from '../ui/input';
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '../ui/form';
-import { CoolCard } from '../custom/CoolCard';
+import { CardCuz } from '../custom/CardCuz/CardCuz';
 
 const Layout = styled.div({
   width: '100%',
@@ -27,9 +26,14 @@ const Layout = styled.div({
 export default function LoginPage() {
   return (
     <Layout>
-      <CoolCard style={{ width: 'clamp(20rem,100%,25rem)', margin: 'auto' }}>
+      <CardCuz
+        // style={{ width: 'clamp(20rem,100%,25rem)', margin: 'auto' }}
+        widthSize={'sm'}
+        varient={'neon'}
+        marginAuto
+      >
         <LoginForm />
-      </CoolCard>
+      </CardCuz>
     </Layout>
   );
 }
@@ -43,6 +47,9 @@ function LoginForm() {
         style={{ alignItems: 'center', padding: '1rem', gap: '0.5rem' }}
         childFullWidth
       >
+        <Typrography textAlign={'center'} fontSize={'1.5rem'}>
+          {'Welcome to webMe'}
+        </Typrography>
         <FormField
           name={'username'}
           render={({ field }) => (
@@ -51,7 +58,7 @@ function LoginForm() {
                 <Typrography>{'USERNAME'}</Typrography>
               </FormLabel>
               <FormControl>
-                <Input type={'text'} {...field} />
+                <Input type={'text'} {...field} autoComplete={'off'} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -65,7 +72,7 @@ function LoginForm() {
                 <Typrography>{'PASSWORD'}</Typrography>
               </FormLabel>
               <FormControl>
-                <Input type={'password'} {...field} width={'100%'} />
+                <Input type={'password'} {...field} autoComplete={'off'} />
               </FormControl>
               <FormMessage />
             </FormItem>
