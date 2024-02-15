@@ -4,8 +4,7 @@ type TCard = { style?: React.CSSProperties };
 
 const Card = ({ style }: TCard) => {
   return styled.div({
-    background:
-      'radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3169642857142857) 300%)',
+    background: 'radial-gradient(circle, rgb(0 0 0) 0%, #7b7b7b 300%)',
     borderTop: '1px solid #ffffff50',
     outline: '0px solid #ffffff00',
     borderRadius: '0.5rem',
