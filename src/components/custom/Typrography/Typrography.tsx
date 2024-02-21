@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { CreateStyled } from '@emotion/styled';
+import styled from '@emotion/styled';
 
 type TTyprography = {
   children?: React.ReactNode | string;
