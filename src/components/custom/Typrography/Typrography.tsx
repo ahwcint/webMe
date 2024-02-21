@@ -6,8 +6,11 @@ type TTyprography = {
 } & React.CSSProperties &
   React.HTMLAttributes<HTMLParagraphElement>;
 
+const TyprographyRender = styled.p((props: any) => ({
+  ...(props.cssProp as React.CSSProperties),
+}));
+
 export const Typrography = (props: TTyprography) => {
   const { children, ...cssProp } = props;
-  const Typrography = styled.p({ ...(cssProp as React.CSSProperties) });
-  return <Typrography>{children}</Typrography>;
+  return <TyprographyRender cssProp={cssProp}>{children}</TyprographyRender>;
 };
