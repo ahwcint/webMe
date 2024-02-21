@@ -4,9 +4,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import z, { ZodType } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '../ui/button';
-import { Typrography } from '../custom/typrography/Typrography';
-import { Input } from '../ui/input';
+import { Button } from '../../ui/button';
+import { Typrography } from '../../custom/typrography/Typrography';
+import { Input } from '../../ui/input';
 import {
   Form,
   FormControl,
@@ -14,7 +14,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../ui/form';
+} from '../../ui/form';
 
 type TSignUpFormSchema = {
   username: string;

@@ -1,5 +1,5 @@
 import React from 'react';
-import AccessHub from '@/components/access-hub/AccessHub';
+import AccessHub from '@/components/pages/access-hub/AccessHub';
 
 export default function Login() {
   return <AccessHub />;
