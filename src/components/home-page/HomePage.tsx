@@ -1,7 +1,9 @@
+'use client';
+
 import React from 'react';
 import styled from '@emotion/styled';
 
-const Div = styled.div<{ text?: string }>((props) => ({
+const Div = styled.div({
   background: 'transparent',
   width: '100vw',
   height: '100vh',
@@ -15,7 +17,7 @@ const Div = styled.div<{ text?: string }>((props) => ({
   display: 'flex',
   placeContent: 'center',
   placeItems: 'center',
-}));
+});
 
 export const HomePage = () => {
   return <Div>{'Welcome to webMe & Korn'}</Div>;
