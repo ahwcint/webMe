@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Button } from '../../ui/button';
-import { Typrography } from '@/components/custom/typrography';
-import { CardCuz } from '@/components/custom/card-cuz';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
+import { Typrography } from '@/components/custom/custom-typrography';
+import { CardCuz } from '@/components/custom/card-cuz';
 
 const Layout = styled.div({
   height: '100%',
@@ -33,7 +33,7 @@ export default function AccessHub({ session }: any) {
           >
             {'webMe'}
           </Typrography>
-          <LoginForm />
+          {!isSwapForm ? <LoginForm /> : <SignUpForm />}
           <Button
             fullWidth
             style={{ marginTop: '1rem' }}
