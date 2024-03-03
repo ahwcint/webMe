@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Button } from '../../ui/button';
-import LoginForm from './LoginForm';
 import { Typrography } from '@/components/custom/typrography';
 import { CardCuz } from '@/components/custom/card-cuz';
+import SignUpForm from './SignUpForm';
+import LoginForm from './LoginForm';
 
 const Layout = styled.div({
   height: '100%',
@@ -19,7 +20,8 @@ const Container = styled.div({
   width: '25rem',
 });
 
-export default function AccessHub() {
+export default function AccessHub({ session }: any) {
+  const [isSwapForm, setIsSwapForm] = useState(false);
   return (
     <Layout>
       <Container>
@@ -32,7 +34,12 @@ export default function AccessHub() {
             {'webMe'}
           </Typrography>
           <LoginForm />
-          <Button fullWidth style={{ marginTop: '1rem' }} variant={'outline'}>
+          <Button
+            fullWidth
+            style={{ marginTop: '1rem' }}
+            variant={'outline'}
+            onClick={() => setIsSwapForm(!isSwapForm)}
+          >
             {'Sign Up'}
           </Button>
         </CardCuz>

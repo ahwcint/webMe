@@ -15,11 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form';
-
-type TLoginFormSchema = {
-  username: string;
-  password: string;
-};
+import { TLoginFormSchema, signInAuth } from '@/app/api/auth/auth';
 
 const LoginFormSchema: ZodType<TLoginFormSchema> = z.object({
   username: z
@@ -44,7 +40,7 @@ const LoginForm = () => {
   });
 
   const handleSubmit = (e: TLoginFormSchema) => {
-    console.log('e', e);
+    signInAuth(e);
   };
 
   const watchBotton = loginForm.watch(['username', 'password']);
