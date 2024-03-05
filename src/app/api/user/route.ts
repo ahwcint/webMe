@@ -1,6 +1,23 @@
-import type { NextApiResponse, NextApiRequest } from 'next';
-import { getSession } from '../auth';
+import { randomUUID } from 'crypto';
+import { PrismaClient, Prisma } from '@prisma/client';
 
-export async function GET(request: NextApiRequest, response: NextApiResponse) {
-  return Response.json({ auth: true });
+const API_PATH_NAME = process.env.API_PATH_NAME;
+const prisma = new PrismaClient();
+
+export async function GET() {
+  return Response.json({ auth: true }, { status: 401 });
+}
+
+export async function POST(request: Request) {
+  const data = await request.json();
+  const user: typeof Prisma.UserWebMeScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    username: data.username,
+    password: data.password,
+  };
+  const userCreate = await prisma.userWebMe.create({
+    data: user,
+  });
+  return Response.json({ data });
 }

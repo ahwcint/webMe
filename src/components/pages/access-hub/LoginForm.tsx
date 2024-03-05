@@ -15,9 +15,9 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form';
-import { TLoginFormSchema, signInAuth } from '@/app/api/auth';
+import { TSignInFormSchema, signInAuth } from '@/libs/auth';
 
-const LoginFormSchema: ZodType<TLoginFormSchema> = z.object({
+const SignInFormSchema: ZodType<TSignInFormSchema> = z.object({
   username: z
     .string()
     .min(1, { message: 'username field is required!' })
@@ -31,15 +31,15 @@ const LoginFormSchema: ZodType<TLoginFormSchema> = z.object({
 });
 
 const LoginForm = () => {
-  const loginForm = useForm<z.infer<typeof LoginFormSchema>>({
-    resolver: zodResolver(LoginFormSchema),
+  const loginForm = useForm<z.infer<typeof SignInFormSchema>>({
+    resolver: zodResolver(SignInFormSchema),
     defaultValues: {
       username: '',
       password: '',
     },
   });
 
-  const handleSubmit = (e: TLoginFormSchema) => {
+  const handleSubmit = (e: TSignInFormSchema) => {
     signInAuth(e);
   };
 

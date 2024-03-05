@@ -15,12 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form';
-
-type TSignUpFormSchema = {
-  username: string;
-  password: string;
-  confirmPassword: string;
-};
+import { TSignUpFormSchema } from '@/libs/auth';
 
 const SignUpFormSchema: ZodType<TSignUpFormSchema> = z
   .object({

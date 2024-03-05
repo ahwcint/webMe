@@ -40,7 +40,7 @@ export default function AccessHub({ session }: any) {
             variant={'outline'}
             onClick={() => setIsSwapForm(!isSwapForm)}
           >
-            {'Sign Up'}
+            {isSwapForm ? 'Sign In' : 'Sign Up'}
           </Button>
         </CardCuz>
       </Container>
