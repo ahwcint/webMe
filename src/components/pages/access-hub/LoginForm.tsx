@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form';
-import { TLoginFormSchema, signInAuth } from '@/app/api/auth/auth';
+import { TLoginFormSchema, signInAuth } from '@/app/api/auth';
 
 const LoginFormSchema: ZodType<TLoginFormSchema> = z.object({
   username: z

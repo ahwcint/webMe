@@ -2,12 +2,12 @@
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getSession } from './app/api/auth/auth';
+import { getSession } from './app/api/auth';
 
 export async function middleware(request: NextRequest) {
   const session = await getSession();
-  if (!session)
-    return NextResponse.redirect(new URL('/access-hub', request.url));
+  // if (!session)
+  //   return NextResponse.redirect(new URL('/access-hub', request.url));
 }
 
 export const config = {

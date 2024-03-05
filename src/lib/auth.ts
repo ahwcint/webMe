@@ -1,6 +1,6 @@
 import { JWTPayload, SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
-import { TLoginFormSchema } from '@/app/api/auth/auth';
+import { TLoginFormSchema } from '@/app/api/auth';
 
 const secret_key = process.env.AUTH_SECRET_KEY;
 const key = new TextEncoder().encode(secret_key);
