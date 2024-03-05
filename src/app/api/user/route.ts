@@ -10,14 +10,12 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const data = await request.json();
-  const user: typeof Prisma.UserWebMeScalarFieldEnum = {
-    id: 'id',
-    userId: 'userId',
-    username: data.username,
-    password: data.password,
-  };
   const userCreate = await prisma.userWebMe.create({
-    data: user,
+    data: {
+      userId: randomUUID(),
+      username: data.username,
+      password: data.password,
+    },
   });
-  return Response.json({ data });
+  return Response.json({ data, userCreate });
 }
