@@ -8,3 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export async function waitMe(second: number) {
   await new Promise((resolve) => setTimeout(resolve, second * 1000));
 }
+
+export const axiosHeaders = {
+  headers: { Authorization: 'Bearer ' + process.env.AUTH_SECRET_KEY },
+};

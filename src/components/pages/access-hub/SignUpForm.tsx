@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from '../../ui/form';
 import { TSignUpFormSchema } from '@/libs/auth';
+import SignUpUser from '@/app/services/user/SignUpUser';
 
 const SignUpFormSchema: ZodType<TSignUpFormSchema> = z
   .object({
@@ -40,7 +41,7 @@ const SignUpFormSchema: ZodType<TSignUpFormSchema> = z
     path: ['confirmPassword'],
   });
 
-const SignUpForm = ({ isShow = true }: { isShow?: boolean }) => {
+const SignUpForm = () => {
   const signUpForm = useForm<z.infer<typeof SignUpFormSchema>>({
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
@@ -49,8 +50,9 @@ const SignUpForm = ({ isShow = true }: { isShow?: boolean }) => {
       confirmPassword: '',
     },
   });
-  const handleSubmit = (e: TSignUpFormSchema) => {
-    console.log('e', e);
+  const handleSubmit = async (payload: TSignUpFormSchema) => {
+    const res = await SignUpUser(payload);
+    console.log('first', res);
   };
   const watchBotton = signUpForm.watch([
     'username',
@@ -58,60 +60,58 @@ const SignUpForm = ({ isShow = true }: { isShow?: boolean }) => {
     'confirmPassword',
   ]);
   return (
-    isShow && (
-      <Form {...signUpForm}>
-        <form onSubmit={signUpForm.handleSubmit(handleSubmit)}>
-          <FormField
-            control={signUpForm.control}
-            name={'username'}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{'USERNAME'}</FormLabel>
-                <FormControl>
-                  <Input type={'text'} {...field} autoComplete={'off'} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={signUpForm.control}
-            name={'password'}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{'PASSWORD'}</FormLabel>
-                <FormControl>
-                  <Input type={'password'} {...field} autoComplete={'off'} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={signUpForm.control}
-            name={'confirmPassword'}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{'CONFIRM PASSWORD'}</FormLabel>
-                <FormControl>
-                  <Input type={'password'} {...field} autoComplete={'off'} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            fullWidth
-            style={{ marginTop: '1rem' }}
-            onClick={() => signUpForm.handleSubmit(handleSubmit)}
-            disabled={watchBotton.includes('')}
-            variant={watchBotton.includes('') ? 'outline' : 'default'}
-          >
-            {'Sign Up!'}
-          </Button>
-        </form>
-      </Form>
-    )
+    <Form {...signUpForm}>
+      <form onSubmit={signUpForm.handleSubmit(handleSubmit)}>
+        <FormField
+          control={signUpForm.control}
+          name={'username'}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{'USERNAME'}</FormLabel>
+              <FormControl>
+                <Input type={'text'} {...field} autoComplete={'off'} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={signUpForm.control}
+          name={'password'}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{'PASSWORD'}</FormLabel>
+              <FormControl>
+                <Input type={'password'} {...field} autoComplete={'off'} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={signUpForm.control}
+          name={'confirmPassword'}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{'CONFIRM PASSWORD'}</FormLabel>
+              <FormControl>
+                <Input type={'password'} {...field} autoComplete={'off'} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button
+          fullWidth
+          style={{ marginTop: '1rem' }}
+          onClick={() => signUpForm.handleSubmit(handleSubmit)}
+          disabled={watchBotton.includes('')}
+          variant={watchBotton.includes('') ? 'outline' : 'default'}
+        >
+          {'Sign Up!'}
+        </Button>
+      </form>
+    </Form>
   );
 };
 

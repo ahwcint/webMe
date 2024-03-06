@@ -10,12 +10,30 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const data = await request.json();
-  const userCreate = await prisma.userWebMe.create({
-    data: {
-      userId: randomUUID(),
-      username: data.username,
-      password: data.password,
-    },
-  });
-  return Response.json({ data, userCreate });
+  const res = await prisma.userWebMe
+    .create({
+      data: {
+        userId: randomUUID(),
+        username: data.username,
+        password: data.password,
+      },
+    })
+    .then((res) => {
+      return Response.json(
+        { message: 'username created', data: res },
+        { status: 200 },
+      );
+    })
+    .catch((err) => {
+      switch (err.code) {
+        case 'P2002':
+          return Response.json({ message: 'username exited' }, { status: 401 });
+        default:
+          return Response.json(
+            { message: 'something went wrong' },
+            { status: 401 },
+          );
+      }
+    });
+  return res;
 }
