@@ -18,13 +18,13 @@ export async function POST(request: Request) {
         password: data.password,
       },
     })
-    .then((res) => {
+    .then((res: any) => {
       return Response.json(
         { message: 'username created', data: res },
         { status: 200 },
       );
     })
-    .catch((err) => {
+    .catch((err: any) => {
       switch (err.code) {
         case 'P2002':
           return Response.json({ message: 'username exited' }, { status: 401 });
