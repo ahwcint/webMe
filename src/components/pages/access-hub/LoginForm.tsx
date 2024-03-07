@@ -15,7 +15,8 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form';
-import { TSignInFormSchema, signInAuth } from '@/libs/auth';
+import { TSignInFormSchema } from './AccessHub.type';
+import { signInAuth } from '@/libs/auth';
 
 const SignInFormSchema: ZodType<TSignInFormSchema> = z.object({
   username: z

@@ -4,8 +4,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import z, { ZodType } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Prisma } from '@prisma/client';
 import { Button } from '../../ui/button';
-import { Typrography } from '../../custom/custom-typrography/Typrography';
 import { Input } from '../../ui/input';
 import {
   Form,
@@ -15,8 +15,9 @@ import {
   FormLabel,
   FormMessage,
 } from '../../ui/form';
-import { TSignUpFormSchema } from '@/libs/auth';
+import { TSignUpFormSchema } from './AccessHub.type';
 import SignUpUser from '@/app/services/user/SignUpUser';
+import { useToast } from '@/components/ui/use-toast';
 
 const SignUpFormSchema: ZodType<TSignUpFormSchema> = z
   .object({
@@ -42,6 +43,8 @@ const SignUpFormSchema: ZodType<TSignUpFormSchema> = z
   });
 
 const SignUpForm = () => {
+  const { toast } = useToast();
+
   const signUpForm = useForm<z.infer<typeof SignUpFormSchema>>({
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
@@ -50,9 +53,18 @@ const SignUpForm = () => {
       confirmPassword: '',
     },
   });
-  const handleSubmit = async (payload: TSignUpFormSchema) => {
-    const res = await SignUpUser(payload);
-    console.log('first', res);
+  const handleSubmit = async (payload: unknown) => {
+    const res = await SignUpUser(payload as Prisma.UserWebMeCreateInput);
+    const title =
+      res.data?.code === 'P2002'
+        ? 'The username is already taken'
+        : 'Create username success';
+    const variant = res.data?.code === 'P2002' ? 'destructive' : 'default';
+    toast({
+      title,
+      description: res.message,
+      variant,
+    });
   };
   const watchBotton = signUpForm.watch([
     'username',

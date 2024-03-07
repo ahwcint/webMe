@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Kanit } from 'next/font/google';
 import '@/styles/globals.css';
+import { Toaster } from '@/components/ui/toaster';
 
 const font = Kanit({ subsets: ['latin'], weight: ['300'] });
 
@@ -15,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${font.className} dark`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

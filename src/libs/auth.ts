@@ -2,17 +2,10 @@
 
 import { cookies } from 'next/headers';
 import { decrypt, encrypt } from '@/libs/jwt';
-
-export type TSignInFormSchema = {
-  username: string;
-  password: string;
-};
-
-export type TSignUpFormSchema = {
-  username: string;
-  password: string;
-  confirmPassword: string;
-};
+import {
+  TSignInFormSchema,
+  TSignUpFormSchema,
+} from '@/components/pages/access-hub/AccessHub.type';
 
 export async function signInAuth(formData: TSignInFormSchema) {
   const user = {
@@ -25,7 +18,7 @@ export async function signInAuth(formData: TSignInFormSchema) {
 export async function signUpAuth(formData: TSignUpFormSchema) {
   //re-check and try to registering if the username doesn't exist on db
 
-  //after create new account then set cookies
+  //after create new account then set cookies for session
   const user = {
     username: formData.username,
   };

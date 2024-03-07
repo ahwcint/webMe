@@ -1,8 +1,5 @@
 import { randomUUID } from 'crypto';
-import { PrismaClient, Prisma } from '@prisma/client';
-
-const API_PATH_NAME = process.env.API_PATH_NAME;
-const prisma = new PrismaClient();
+import { prisma } from '@/libs/utils';
 
 export async function GET() {
   return Response.json({ auth: true }, { status: 401 });
@@ -10,7 +7,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const data = await request.json();
-  const res = await prisma.userWebMe
+  return await prisma.userWebMe
     .create({
       data: {
         userId: randomUUID(),
@@ -18,22 +15,31 @@ export async function POST(request: Request) {
         password: data.password,
       },
     })
-    .then((res: any) => {
+    .then((res) => {
       return Response.json(
-        { message: 'username created', data: res },
+        {
+          message: 'The username has been created',
+          data: res,
+        },
         { status: 200 },
       );
     })
     .catch((err: any) => {
       switch (err.code) {
         case 'P2002':
-          return Response.json({ message: 'username exited' }, { status: 401 });
+          return Response.json(
+            {
+              message:
+                'The requested username is already taken, Please choose a different username',
+              data: err,
+            },
+            { status: 409 },
+          );
         default:
           return Response.json(
-            { message: 'something went wrong' },
+            { message: 'something went wrong', data: err },
             { status: 401 },
           );
       }
     });
-  return res;
 }
