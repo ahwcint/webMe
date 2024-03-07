@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "./generated/client"
 }
 
 datasource db {
@@ -17,11 +18,11 @@ model User {
 }
 
 model UserWebMe {
-  id                Int    @id @default(autoincrement())
-  createdAt         DateTime @default(now())
-  userId            String @unique
-  username          String @unique
-  password          String @db.LongText
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  userId    String   @unique
+  username  String   @unique
+  password  String   @db.LongText
 }
 
 model Account {
